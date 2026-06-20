@@ -1,4 +1,4 @@
-# BreachProtocol
+# ⚡️ BreachProtocol
 
 > Automatización del reconocimiento inicial para máquinas de HackTheBox y otros entornos CTF.
 
@@ -32,9 +32,9 @@ chmod +x BPv3.sh
 ./BPv3.sh [OPCIONES]
 ```
 
-| Flag | Argumento   | Descripción                                                          |
+| Flag | Argumento   | Descripción                                                           |
 |------|-------------|-----------------------------------------------------------------------|
-| `-f` | FOLDER_NAME | Nombre de la carpeta de trabajo para la máquina                      |
+| `-f` | FOLDER_NAME | Nombre de la carpeta de trabajo para la máquina                       |
 | `-h` | HOST/IP     | IP o host objetivo                                                    |
 | `-c` | —           | Conecta a la VPN antes de escanear (selección interactiva del `.ovpn`)|
 | `-d` | —           | Desconecta la VPN y termina (ignora el resto de flags)                |
@@ -60,7 +60,7 @@ chmod +x BPv3.sh
 2. Si `-d`: desconecta la VPN (mata el proceso `openvpn`) y sale.
 3. Si hay `-c` + `-f` + `-h`: crea la estructura de carpetas, conecta la VPN y lanza el escaneo.
 4. Si solo hay `-f` + `-h` (sin `-c`): crea la carpeta si no existe y lanza el escaneo directamente, asumiendo que la VPN ya está activa.
-5. Si falta `-f` o `-h`: muestra la ayuda y sale.
+5. Si falta `-f` o `-h`: muestra la ayuda y sale del programa.
 
 `Ctrl+C` está capturado (`trap SIGINT SIGTERM`): mata los procesos de `nmap` en curso y sale de forma controlada.
 
@@ -85,7 +85,7 @@ nmap -sSV -p- -vv -Pn -n -T2 --min-rate 3000 --stats-every=5s --max-retries 3 --
 nmap -sU -p- -vv -n -T2 --min-rate 3000 --stats-every=5s --max-retries 3 --source-port 53 -oA <ruta>
 ```
 
-Justificación de los flags clave:
+Justificación de las flags utilizadas:
 
 - `-p-` → escanea los 65535 puertos, nada de top-1000.
 - `-sSV` → SYN scan + detección de versión de servicio en un solo paso.
@@ -97,19 +97,6 @@ Justificación de los flags clave:
 
 Si `xsltproc` está disponible y el XML del escaneo se completó correctamente, se genera además un reporte HTML legible a partir del XSL propio de nmap.
 
-## Limitaciones conocidas
-
-1. **Generación del reporte HTML rota.** En `scan()`, `$REPORT_NAME` se usa en el flag `-oA` *antes* de asignarse (la asignación está en la línea siguiente). El primer escaneo se ejecuta siempre con `REPORT_NAME` vacío, así que nmap termina escribiendo `scan/.nmap`, `scan/.xml` y `scan/.gnmap` (nombre vacío) en lugar de `allPorts_tcp`/`allPorts_udp`. La comprobación posterior busca `scan/allPorts_tcp.xml`, que nunca existe, así que el HTML nunca se genera aunque `xsltproc` esté instalado.
-2. **Variable mal escrita en el mensaje final.** El nombre de fichero que se muestra por pantalla usa `$SCAN_TYPE` (no definida en ningún sitio) en vez de `$scan_type`.
-3. **Usuario y ruta de VPN hardcodeados.** `conn()` da por hecho un usuario `dreddsec` y busca los `.ovpn` en `/home/dreddsec/Downloads/`. Para usarlo con otro usuario hay que editar esa parte a mano.
-4. **`pkill -f nmap` es global.** Tanto el `trap` de `Ctrl+C` como el cleanup matan *cualquier* proceso `nmap` del sistema, no solo el lanzado por el script.
-5. **Asimetría TCP/UDP.** El escaneo TCP incluye `-Pn` y el UDP no; si es intencionado no está documentado en el script.
-
-## Roadmap
-
-- Corregir el orden de asignación de `REPORT_NAME` para que el reporte HTML se genere de forma fiable.
-- Hacer configurable el usuario/ruta de los `.ovpn` (variable de entorno o flag adicional).
-- Unificar el comportamiento de `-Pn` entre TCP y UDP.
 
 ## Aviso
 
