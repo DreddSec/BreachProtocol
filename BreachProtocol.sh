@@ -5,7 +5,7 @@ machine_name="$1"
 target="$2"
 
 trap_c(){
-	echo -e "\n[!!!] Leaving the program...\n"
+	echo -e "\n[!] Leaving the program...\n"
 	exit 1
 }
 
