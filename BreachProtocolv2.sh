@@ -143,7 +143,7 @@ scan(){
     echo -e "\n[*] Creating visual report file.."
     # Checks if the tool xsltproc it's available on the machine to make the report cleaner
     if ! command -v xsltproc &> /dev/null; then
-        echo -e "\n[!] Error making the visual html file of the scan"
+        echo -e "\n[!] Error making the visual html file of the scan report, please install xsltproc to visualize the report"
         echo -e "\n Even you can visualize the report on the $machine_name/scan/ \n"
     fi
     
@@ -166,10 +166,10 @@ main(){
         conn
         exit 0
     fi
-    
+     echo -e "\n[*] Starting Breach Protocol v2.0"
+    sleep 1
     # If everything goes right starts all the functions 
-    if && [ -n "$machine_name" ] && [ -n "$target" ]; then
-         echo -e "\n[*] Starting the process..."
+    if [ -n "$machine_name" ] && [ -n "$target" ]; then
         makedir && scan
     elif [ -n "$machine_name" ] && [ -n "$target" ]; then
         if [ ! -d "$machine_name" ]; then
@@ -180,7 +180,7 @@ main(){
         echo -e "\n[!] Must provide a target with -h [HOST/IP]"
         usage
     else
-        echo -e "\n[!] Must provide at least de flag -c to connect to the VPN or -h [HOST/IP] to use the tool"
+        echo -e "\n[!] Must provide at least de flag -c to connect to the VPN to use the tool"
         usage
     fi
 }
