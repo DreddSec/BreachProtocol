@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PORT_LIST=""
+COUNT=0
+VALIDATION_STATUS=0
