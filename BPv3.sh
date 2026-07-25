@@ -144,7 +144,6 @@ scan(){
     # Checks if the tool xsltproc it's available on the machine to make the report cleaner
     if ! command -v xsltproc &> /dev/null; then
         echo -e "\n[!] Error making the visual html file of the scan"
-        echo "[!?] You can install with: apt install xsltproc"
         echo -e "\n Even you can visualize the report on the $machine_name/scan/ \n"
     fi
     
@@ -162,6 +161,9 @@ main(){
     if [ $disconnect_vpn -eq 1 ]; then
         disconn
         exit 0
+    fi
+    if [ $connect_vpn -eq 1 ]; then
+        conn
     fi
     
     echo -e "\n[*] Starting the process..."
