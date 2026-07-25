@@ -8,7 +8,7 @@ scan_type="tcp"
 
 usage() {
     cat << EOF
-Usage: ./bp.sh [OPTIONS]
+Usage: bp [OPTIONS]
 
 OPTIONS:
     -f FOLDER_NAME      Folder name of the machine/target
@@ -17,11 +17,12 @@ OPTIONS:
     -d                  Disconnect of the VPN
     -t                  TCP scan (default)
     -u                  UDP scan
-    
+
 EXAMPLES:
-    ./bp.sh -f FOLDER_NAME -h IP -c -t
-    ./bp.sh -f FOLDER_NAME -h IP -u
-    ./bp.sh -d
+    bp -f FOLDER_NAME -h IP -c -t
+    bp -f FOLDER_NAME -h IP -u
+    bp -d
+    bp -c
 
 EOF
     exit 1
