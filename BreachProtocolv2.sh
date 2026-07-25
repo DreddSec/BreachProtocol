@@ -19,7 +19,6 @@ OPTIONS:
     -u                  UDP scan
 
 EXAMPLES:
-    bp -f FOLDER_NAME -h IP -c -t
     bp -f FOLDER_NAME -h IP -u
     bp -d
     bp -c
