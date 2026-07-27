@@ -1,4 +1,4 @@
-# <img width="120" height="124" alt="HACKS" src="https://github.com/user-attachments/assets/3e0b8e67-cb80-4c94-8f6d-02c54a622a77" width="40" height="40"> BreachProtocol 
+# <img width="120" height="124" alt="HACKS" src="https://github.com/user-attachments/assets/3e0b8e67-cb80-4c94-8f6d-02c54a622a77" width="20" height="20"> BreachProtocol 
 
 > Automatización del reconocimiento inicial para máquinas de HackTheBox y otros entornos CTF.
 
